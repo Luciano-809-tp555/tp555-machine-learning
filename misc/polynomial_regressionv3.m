@@ -1,12 +1,13 @@
 clear all;close all;clc;
 
 fo = 1;
-x = 0:1/50:1/2;
+x = 0:1/250:1/2;
 x = x.';
 
 M = length(x);
 
-y = cos(2*pi*fo*x + 0.2);
+wo = 2*pi*fo*x + 0.2;
+y = cos(wo);
 
 y_noisy = y + 0.5*randn(M, 1);
 
@@ -27,11 +28,11 @@ hold off
 %% Closed-form solution.
 %% ------------------------------------------------------------------------
 
-X = [ones(M, 1) x x.^2 x.^3];
+X = [ones(M, 1) x x.^2 x.^3 x.^4 x.^5 x.^6 x.^7 x.^8];
 
 a_opt = pinv(X.'*X)*X.'*y;
 
-yhat = a_opt(1) + a_opt(2)*x + a_opt(3)*x.^2 + a_opt(4).*x.^3;
+yhat = a_opt(1) + a_opt(2)*x + a_opt(3)*x.^2 + a_opt(4).*x.^3 + a_opt(5).*x.^4;
 
 Joptimum = (1/M)*sum((y - yhat).^2);
 
@@ -44,10 +45,9 @@ Joptimum = (1/M)*sum((y - yhat).^2);
 alpha = 0.9;
 
 % Initialize 'a' at a random location within the parameter's space.
-a = zeros(4, 10000);
-a(:,1) = [2;-2;-30;50];
+a(:,1) = [2;-2;-30;50;50;50;50;50;50];
 
-yhat = a(1,1) + a(2,1)*x + a(3,1)*x.^2 + a(4,1)*x.^3;
+yhat = X*a(:,1);
 
 Jgd = zeros(1, 10000);
 Jgd(1) = (1/M)*sum((y - yhat).^2);
@@ -56,13 +56,13 @@ error = 1;
 iter = 1;
 while(error > 0.0001 && iter <= 10000)
     
-    h = a(1, iter) + a(2,iter)*x + a(3,iter)*x.^2 + a(4,iter)*x.^3;
+    h = X*a(:,iter);
     
     update = -(2./M).*(y - h).'*X;
     
     a(:,iter+1) = a(:,iter) - alpha.*update.';
     
-    yhat = a(1,iter+1) + a(2,iter+1)*x + a(3,iter+1)*x.^2 + a(4,iter+1)*x.^3;
+    yhat = X*a(:,iter+1);
     
     Jgd(iter+1) = (1/M).*sum((y - yhat).^2);
     
@@ -79,7 +79,7 @@ ylabel('J_e');
 grid on;
 
 
-yhat = a(1,iter) + a(2,iter)*x + a(3,iter)*x.^2 + a(4,iter)*x.^3;
+yhat = X*a(:,iter);
 figure3 = figure('rend','painters','pos',[10 10 800 700]);
 plot(x, yhat, 'LineWidth', 2)
 hold on
