@@ -33,13 +33,25 @@ clear all;close all;clc
 
 
 
-%A = randn(2,3);
-A = [2 0 0; 0 1 0; 0 0 0];
+% %A = randn(2,3);
+% A = [2 0 0; 0 1 0; 0 0 0];
+% 
+% det(A'*A)
+% 
+% rank(A'*A)
+% 
+% %pinv(A'*A)
+% 
+% [v u] = eig(A'*A)
 
-det(A'*A)
 
-rank(A'*A)
+%A = [1 2 3; 4 5 6];
 
-%pinv(A'*A)
+A = [1 2 3; 7 13 6; 17 8 9];
 
-[v u] = eig(A'*A)
+rank(A.'*A)
+
+det(A.'*A)
+
+inv(A.'*A)
+
