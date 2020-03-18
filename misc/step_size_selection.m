@@ -1,7 +1,7 @@
 clear all;close all;clc;
 
 %% Small step-size
-if(0)
+if(1)
     fontSize = 14;
     
     a_int = [-20;-20];
@@ -223,6 +223,7 @@ end
 
 %% Optimum step-size
 if(1)
+    clear a Jgd
     fontSize = 14;
     
     a_int = [-20;-20];
