@@ -38,8 +38,8 @@ non_scaled = 1;
 standardization = 1;
 minmaxscaling = 1;
 
-target_standardization = 1;
-target_minmaxscaling = 1;
+target_standardization = 0;
+target_minmaxscaling = 0;
 
 
 if(non_scaled==1)
@@ -68,9 +68,9 @@ if(non_scaled==1)
     
     X = [x1 x2];
     
-    a_opt = pinv(X.'*X)*X.'*y;
+    a_opt_noscale = pinv(X.'*X)*X.'*y;
     
-    yhat = a_opt(1)*x1 + a_opt(2)*x2;
+    yhat = a_opt_noscale(1)*x1 + a_opt_noscale(2)*x2;
     
     Joptimum = (1/M)*sum((y - yhat).^2);
     
@@ -120,9 +120,9 @@ if(non_scaled==1)
     xlabel('a_1', 'FontSize', fontSize)
     ylabel('a_2', 'FontSize', fontSize)
     zlabel('J_e', 'FontSize', fontSize)
-    title('Contorno da Superficie de Erro', 'FontSize', fontSize)
+    title('Contorno da Superficie de Erro', 'FontSize', fontSize, 'Interpreter', 'latex')
     hold on
-    plot(a_opt(1), a_opt(2), 'r*', 'MarkerSize', 10, 'LineWidth',1);
+    plot(a_opt_noscale(1), a_opt_noscale(2), 'r*', 'MarkerSize', 10, 'LineWidth',1);
     plot(a(1,:), a(2,:), 'kx', 'MarkerSize', 10, 'LineWidth',1);
     hold off;
     
@@ -203,9 +203,9 @@ if(standardization==1)
     
     X = [x1 x2];
     
-    a_opt = pinv(X.'*X)*X.'*y;
+    a_opt_std = pinv(X.'*X)*X.'*y;
     
-    yhat = a_opt(1)*x1 + a_opt(2)*x2;
+    yhat = a_opt_std(1)*x1 + a_opt_std(2)*x2;
     
     Joptimum = (1/M)*sum((y - yhat).^2);
     
@@ -255,9 +255,9 @@ if(standardization==1)
     xlabel('a_1', 'FontSize', fontSize)
     ylabel('a_2', 'FontSize', fontSize)
     zlabel('J_e', 'FontSize', fontSize)
-    title('Contorno da Superficie de Erro', 'FontSize', fontSize)
+    title('Contorno da Superficie de Erro', 'FontSize', fontSize, 'Interpreter', 'latex')
     hold on
-    plot(a_opt(1), a_opt(2), 'r*', 'MarkerSize', 10, 'LineWidth',1);
+    plot(a_opt_std(1), a_opt_std(2), 'r*', 'MarkerSize', 10, 'LineWidth',1);
     plot(a(1,:), a(2,:), 'kx', 'MarkerSize', 10, 'LineWidth',1);
     hold off;
 
@@ -345,9 +345,9 @@ if(minmaxscaling==1)
     
     X = [x1 x2];
     
-    a_opt = pinv(X.'*X)*X.'*y;
+    a_opt_minmax = pinv(X.'*X)*X.'*y;
     
-    yhat = a_opt(1)*x1 + a_opt(2)*x2;
+    yhat = a_opt_minmax(1)*x1 + a_opt_minmax(2)*x2;
     
     Joptimum = (1/M)*sum((y - yhat).^2);
     
@@ -396,9 +396,9 @@ if(minmaxscaling==1)
     xlabel('a_1', 'FontSize', fontSize)
     ylabel('a_2', 'FontSize', fontSize)
     zlabel('J_e', 'FontSize', fontSize)
-    title('Contorno da Superficie de Erro', 'FontSize', fontSize)
+    title('Contorno da Superficie de Erro', 'FontSize', fontSize, 'Interpreter', 'latex')
     hold on
-    plot(a_opt(1), a_opt(2), 'r*', 'MarkerSize', 10, 'LineWidth',1);
+    plot(a_opt_minmax(1), a_opt_minmax(2), 'r*', 'MarkerSize', 10, 'LineWidth',1);
     plot(a(1,:), a(2,:), 'kx', 'MarkerSize', 10, 'LineWidth',1);
     hold off;
     
