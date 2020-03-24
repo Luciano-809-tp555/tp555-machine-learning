@@ -34,8 +34,8 @@ a2 = -44:1/1:48;
 [A1,A2] = meshgrid(a1,a2);
 
 
-non_scaled = 0;
-standardization = 0;
+non_scaled = 1;
+standardization = 1;
 minmaxscaling = 1;
 
 target_standardization = 0;
@@ -181,18 +181,6 @@ if(standardization==1)
     
     fdee_figure1 = figure('rend', 'painters', 'pos', [10 10 800 700]);
     subplot(2,1,1)
-    h1 = histogram(x1t);
-    h1.Normalization = 'pdf';
-    h1.NumBins = 50;
-    grid on
-    hold on
-    h2 = histogram(x2t);
-    h2.Normalization = 'pdf';
-    h2.NumBins = 100;
-    legend('x1','x2')
-    title('Sem escalonamento')
-    
-    subplot(2,1,2)
     h1 = histogram(x1);
     h1.Normalization = 'pdf';
     h1.NumBins = 50;
@@ -201,8 +189,7 @@ if(standardization==1)
     h2 = histogram(x2);
     h2.Normalization = 'pdf';
     h2.NumBins = 100;
-    legend('x1','x2')
-    title('Padronização')
+    legend('x1','x2')    
     
     J = zeros(length(A1),length(A2));
     for iter1=1:1:length(a1)
@@ -345,32 +332,6 @@ if(minmaxscaling==1)
     else
         ypp = yp;
     end
-    
-    
-    fdee_figure1 = figure('rend', 'painters', 'pos', [10 10 800 700]);
-    subplot(2,1,1)
-    h1 = histogram(x1t);
-    h1.Normalization = 'pdf';
-    h1.NumBins = 50;
-    grid on
-    hold on
-    h2 = histogram(x2t);
-    h2.Normalization = 'pdf';
-    h2.NumBins = 100;
-    legend('x1','x2')
-    title('Sem escalonamento')
-    
-    subplot(2,1,2)
-    h1 = histogram(x1);
-    h1.Normalization = 'pdf';
-    h1.NumBins = 100;
-    grid on
-    hold on
-    h2 = histogram(x2);
-    h2.Normalization = 'pdf';
-    h2.NumBins = 100;
-    legend('x1','x2')
-    title('Normalização Min-Max')    
     
     J = zeros(length(A1),length(A2));
     for iter1=1:1:length(a1)
