@@ -1,7 +1,5 @@
-# Example set size.
-M = 20
-
-# Create target function.
-x1 = np.linspace(-3, 3, M).reshape(M, 1)
-y = 2 + x1 + 0.5*x1**2;
-y_noisy = y + np.random.randn(M, 1)
+def stepDecay(alpha_int, t):
+    drop = 0.5
+    epochs_drop = 4.0
+    alpha = alpha_int * math.pow(drop,  math.floor((1+t)/epochs_drop))
+    return alpha
